@@ -1,0 +1,250 @@
+2022-04-11 20:12:40.070194: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2022-04-11 20:12:40.096578: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1006] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2022-04-11 20:12:40.096692: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 0 with properties: 
+name: NVIDIA GeForce RTX 3090 major: 8 minor: 6 memoryClockRate(GHz): 1.8
+pciBusID: 0000:08:00.0
+2022-04-11 20:12:40.096814: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2022-04-11 20:12:40.097313: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2022-04-11 20:12:40.097856: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10.0
+2022-04-11 20:12:40.097979: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10.0
+2022-04-11 20:12:40.098537: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2022-04-11 20:12:40.098941: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10.0
+2022-04-11 20:12:40.100205: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2022-04-11 20:12:40.100262: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1006] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2022-04-11 20:12:40.100371: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1006] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2022-04-11 20:12:40.100444: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1746] Adding visible gpu devices: 0
+2022-04-11 20:12:40.100620: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2022-04-11 20:12:40.123263: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 3393750000 Hz
+2022-04-11 20:12:40.123901: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x560000e18390 executing computations on platform Host. Devices:
+2022-04-11 20:12:40.123919: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Host, Default Version
+2022-04-11 20:12:40.198388: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1006] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2022-04-11 20:12:40.198552: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x560000691270 executing computations on platform CUDA. Devices:
+2022-04-11 20:12:40.198570: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): NVIDIA GeForce RTX 3090, Compute Capability 8.6
+2022-04-11 20:12:40.198689: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1006] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2022-04-11 20:12:40.198785: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 0 with properties: 
+name: NVIDIA GeForce RTX 3090 major: 8 minor: 6 memoryClockRate(GHz): 1.8
+pciBusID: 0000:08:00.0
+2022-04-11 20:12:40.198807: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2022-04-11 20:12:40.198818: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2022-04-11 20:12:40.198827: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10.0
+2022-04-11 20:12:40.198845: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10.0
+2022-04-11 20:12:40.198856: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2022-04-11 20:12:40.198865: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10.0
+2022-04-11 20:12:40.198873: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2022-04-11 20:12:40.198914: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1006] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2022-04-11 20:12:40.199024: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1006] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2022-04-11 20:12:40.199097: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1746] Adding visible gpu devices: 0
+2022-04-11 20:12:40.199120: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2022-04-11 20:12:40.199308: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1159] Device interconnect StreamExecutor with strength 1 edge matrix:
+2022-04-11 20:12:40.199320: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1165]      0 
+2022-04-11 20:12:40.199328: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1178] 0:   N 
+2022-04-11 20:12:40.199397: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1006] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2022-04-11 20:12:40.199503: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1006] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2022-04-11 20:12:40.199580: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1304] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 21998 MB memory) -> physical GPU (device: 0, name: NVIDIA GeForce RTX 3090, pci bus id: 0000:08:00.0, compute capability: 8.6)
+2022-04-11 20:16:13.216218: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2022-04-11 20:16:29.026517: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2022-04-11 20:16:29.061348: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 0 with properties: 
+name: NVIDIA GeForce RTX 3090 major: 8 minor: 6 memoryClockRate(GHz): 1.8
+pciBusID: 0000:08:00.0
+2022-04-11 20:16:29.061484: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2022-04-11 20:16:29.061989: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2022-04-11 20:16:29.062541: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10.0
+2022-04-11 20:16:29.062665: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10.0
+2022-04-11 20:16:29.063247: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2022-04-11 20:16:29.063658: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10.0
+2022-04-11 20:16:29.064933: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2022-04-11 20:16:29.065216: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1746] Adding visible gpu devices: 0
+2022-04-11 20:16:29.065407: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2022-04-11 20:16:29.087262: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 3393750000 Hz
+2022-04-11 20:16:29.087993: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x5644d99ad2b0 executing computations on platform Host. Devices:
+2022-04-11 20:16:29.088012: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Host, Default Version
+2022-04-11 20:16:29.154475: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x5644d9226310 executing computations on platform CUDA. Devices:
+2022-04-11 20:16:29.154499: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): NVIDIA GeForce RTX 3090, Compute Capability 8.6
+2022-04-11 20:16:29.154719: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 0 with properties: 
+name: NVIDIA GeForce RTX 3090 major: 8 minor: 6 memoryClockRate(GHz): 1.8
+pciBusID: 0000:08:00.0
+2022-04-11 20:16:29.154747: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2022-04-11 20:16:29.154761: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2022-04-11 20:16:29.154771: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10.0
+2022-04-11 20:16:29.154781: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10.0
+2022-04-11 20:16:29.154791: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2022-04-11 20:16:29.154801: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10.0
+2022-04-11 20:16:29.154812: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2022-04-11 20:16:29.155015: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1746] Adding visible gpu devices: 0
+2022-04-11 20:16:29.155040: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2022-04-11 20:16:29.155231: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1159] Device interconnect StreamExecutor with strength 1 edge matrix:
+2022-04-11 20:16:29.155244: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1165]      0 
+2022-04-11 20:16:29.155250: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1178] 0:   N 
+2022-04-11 20:16:29.155484: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1304] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 22091 MB memory) -> physical GPU (device: 0, name: NVIDIA GeForce RTX 3090, pci bus id: 0000:08:00.0, compute capability: 8.6)
+2022-04-11 20:17:25.537910: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2022-04-11 20:18:09.808150: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2022-04-11 20:26:33.745607: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2022-04-11 20:26:33.781454: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 0 with properties: 
+name: NVIDIA GeForce RTX 3090 major: 8 minor: 6 memoryClockRate(GHz): 1.8
+pciBusID: 0000:08:00.0
+2022-04-11 20:26:33.781574: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2022-04-11 20:26:33.782079: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2022-04-11 20:26:33.782629: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10.0
+2022-04-11 20:26:33.782751: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10.0
+2022-04-11 20:26:33.783323: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2022-04-11 20:26:33.783730: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10.0
+2022-04-11 20:26:33.785016: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2022-04-11 20:26:33.785239: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1746] Adding visible gpu devices: 0
+2022-04-11 20:26:33.785458: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2022-04-11 20:26:33.807265: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 3393750000 Hz
+2022-04-11 20:26:33.807914: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x56519f579ce0 executing computations on platform Host. Devices:
+2022-04-11 20:26:33.807931: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Host, Default Version
+2022-04-11 20:26:33.877362: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x56519f4ed1f0 executing computations on platform CUDA. Devices:
+2022-04-11 20:26:33.877380: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): NVIDIA GeForce RTX 3090, Compute Capability 8.6
+2022-04-11 20:26:33.877583: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 0 with properties: 
+name: NVIDIA GeForce RTX 3090 major: 8 minor: 6 memoryClockRate(GHz): 1.8
+pciBusID: 0000:08:00.0
+2022-04-11 20:26:33.877606: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2022-04-11 20:26:33.877618: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2022-04-11 20:26:33.877627: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10.0
+2022-04-11 20:26:33.877636: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10.0
+2022-04-11 20:26:33.877645: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2022-04-11 20:26:33.877654: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10.0
+2022-04-11 20:26:33.877664: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2022-04-11 20:26:33.877866: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1746] Adding visible gpu devices: 0
+2022-04-11 20:26:33.877890: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2022-04-11 20:26:33.878072: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1159] Device interconnect StreamExecutor with strength 1 edge matrix:
+2022-04-11 20:26:33.878083: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1165]      0 
+2022-04-11 20:26:33.878090: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1178] 0:   N 
+2022-04-11 20:26:33.878339: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1304] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 22222 MB memory) -> physical GPU (device: 0, name: NVIDIA GeForce RTX 3090, pci bus id: 0000:08:00.0, compute capability: 8.6)
+2022-04-11 20:27:18.724043: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2022-04-11 20:27:18.752586: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 0 with properties: 
+name: NVIDIA GeForce RTX 3090 major: 8 minor: 6 memoryClockRate(GHz): 1.8
+pciBusID: 0000:08:00.0
+2022-04-11 20:27:18.752719: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2022-04-11 20:27:18.753232: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2022-04-11 20:27:18.753791: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10.0
+2022-04-11 20:27:18.753915: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10.0
+2022-04-11 20:27:18.754497: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2022-04-11 20:27:18.754913: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10.0
+2022-04-11 20:27:18.756244: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2022-04-11 20:27:18.756472: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1746] Adding visible gpu devices: 0
+2022-04-11 20:27:18.756699: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2022-04-11 20:27:18.779260: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 3393750000 Hz
+2022-04-11 20:27:18.779970: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55c569ca6a40 executing computations on platform Host. Devices:
+2022-04-11 20:27:18.779985: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Host, Default Version
+2022-04-11 20:27:18.846142: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55c569c99940 executing computations on platform CUDA. Devices:
+2022-04-11 20:27:18.846159: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): NVIDIA GeForce RTX 3090, Compute Capability 8.6
+2022-04-11 20:27:18.846382: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 0 with properties: 
+name: NVIDIA GeForce RTX 3090 major: 8 minor: 6 memoryClockRate(GHz): 1.8
+pciBusID: 0000:08:00.0
+2022-04-11 20:27:18.846411: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2022-04-11 20:27:18.846422: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2022-04-11 20:27:18.846431: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10.0
+2022-04-11 20:27:18.846440: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10.0
+2022-04-11 20:27:18.846448: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2022-04-11 20:27:18.846457: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10.0
+2022-04-11 20:27:18.846466: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2022-04-11 20:27:18.846665: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1746] Adding visible gpu devices: 0
+2022-04-11 20:27:18.846688: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2022-04-11 20:27:18.846845: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1159] Device interconnect StreamExecutor with strength 1 edge matrix:
+2022-04-11 20:27:18.846854: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1165]      0 
+2022-04-11 20:27:18.846858: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1178] 0:   N 
+2022-04-11 20:27:18.847065: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1304] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 22222 MB memory) -> physical GPU (device: 0, name: NVIDIA GeForce RTX 3090, pci bus id: 0000:08:00.0, compute capability: 8.6)
+2022-04-11 21:23:10.738712: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2022-04-11 21:23:10.757866: E tensorflow/stream_executor/cuda/cuda_driver.cc:318] failed call to cuInit: CUDA_ERROR_NO_DEVICE: no CUDA-capable device is detected
+2022-04-11 21:23:10.757889: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:169] retrieving CUDA diagnostic information for host: fv
+2022-04-11 21:23:10.757897: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:176] hostname: fv
+2022-04-11 21:23:10.757949: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:200] libcuda reported version is: 510.47.3
+2022-04-11 21:23:10.757965: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:204] kernel reported version is: 510.47.3
+2022-04-11 21:23:10.757970: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:310] kernel version seems to match DSO: 510.47.3
+2022-04-11 21:23:10.758079: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2022-04-11 21:23:10.779263: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 3393750000 Hz
+2022-04-11 21:23:10.779959: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55c08c595f70 executing computations on platform Host. Devices:
+2022-04-11 21:23:10.779976: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Host, Default Version
+2022-04-11 21:23:39.518718: W tensorflow/core/framework/cpu_allocator_impl.cc:81] Allocation of 12230590464 exceeds 10% of system memory.
+2022-04-11 21:23:39.518720: W tensorflow/core/framework/cpu_allocator_impl.cc:81] Allocation of 12230590464 exceeds 10% of system memory.
+/media/hdd/dhcp/dhcp_lores/labels
+Epoch 1/200
+
+   1/1000 [..............................] - ETA: 9:21:29 - loss: 0.76442022-04-11 21:23:52.530614: I tensorflow/core/profiler/lib/profiler_session.cc:184] Profiler session started.
+2022-04-11 21:23:52.532620: E tensorflow/core/platform/default/device_tracer.cc:70] CUDA error: CUDA_ERROR_NO_DEVICE
+2022-04-11 21:23:56.427925: W tensorflow/core/framework/cpu_allocator_impl.cc:81] Allocation of 12230590464 exceeds 10% of system memory.
+2022-04-11 21:23:56.427925: W tensorflow/core/framework/cpu_allocator_impl.cc:81] Allocation of 12230590464 exceeds 10% of system memory.
+
+   2/1000 [..............................] - ETA: 7:01:11 - loss: 0.73432022-04-11 21:24:13.412963: W tensorflow/core/framework/cpu_allocator_impl.cc:81] Allocation of 12230590464 exceeds 10% of system memory.
+
+   3/1000 [..............................] - ETA: 6:14:44 - loss: 0.60402022-04-11 21:24:40.657300: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2022-04-11 21:24:40.686242: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 0 with properties: 
+name: NVIDIA GeForce RTX 3090 major: 8 minor: 6 memoryClockRate(GHz): 1.8
+pciBusID: 0000:08:00.0
+2022-04-11 21:24:40.686373: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2022-04-11 21:24:40.686885: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2022-04-11 21:24:40.687466: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10.0
+2022-04-11 21:24:40.687591: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10.0
+2022-04-11 21:24:40.688178: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2022-04-11 21:24:40.688606: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10.0
+2022-04-11 21:24:40.689956: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2022-04-11 21:24:40.690221: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1746] Adding visible gpu devices: 0
+2022-04-11 21:24:40.690441: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2022-04-11 21:24:40.711262: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 3393750000 Hz
+2022-04-11 21:24:40.711933: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x562b369dadc0 executing computations on platform Host. Devices:
+2022-04-11 21:24:40.711951: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Host, Default Version
+2022-04-11 21:24:40.784406: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x562b374a5ff0 executing computations on platform CUDA. Devices:
+2022-04-11 21:24:40.784427: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): NVIDIA GeForce RTX 3090, Compute Capability 8.6
+2022-04-11 21:24:40.784667: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 0 with properties: 
+name: NVIDIA GeForce RTX 3090 major: 8 minor: 6 memoryClockRate(GHz): 1.8
+pciBusID: 0000:08:00.0
+2022-04-11 21:24:40.784698: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2022-04-11 21:24:40.784708: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2022-04-11 21:24:40.784717: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10.0
+2022-04-11 21:24:40.784726: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10.0
+2022-04-11 21:24:40.784736: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2022-04-11 21:24:40.784744: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10.0
+2022-04-11 21:24:40.784752: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2022-04-11 21:24:40.784954: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1746] Adding visible gpu devices: 0
+2022-04-11 21:24:40.784978: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2022-04-11 21:24:40.785158: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1159] Device interconnect StreamExecutor with strength 1 edge matrix:
+2022-04-11 21:24:40.785169: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1165]      0 
+2022-04-11 21:24:40.785174: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1178] 0:   N 
+2022-04-11 21:24:40.785420: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1304] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 22274 MB memory) -> physical GPU (device: 0, name: NVIDIA GeForce RTX 3090, pci bus id: 0000:08:00.0, compute capability: 8.6)
+2022-04-11 21:28:20.092495: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2022-04-11 21:29:14.827184: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2022-04-11 21:39:31.373325: I tensorflow/core/kernels/cuda_solvers.cc:159] Creating CudaSolver handles for stream 0x562b374b9810
+2022-04-11 21:39:31.373432: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2022-04-11 21:40:36.151165: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2022-04-11 21:40:36.988736: E tensorflow/stream_executor/cuda/cuda_blas.cc:428] failed to run cuBLAS routine: CUBLAS_STATUS_EXECUTION_FAILED
+2022-04-11 21:40:36.988786: W tensorflow/core/common_runtime/base_collective_executor.cc:216] BaseCollectiveExecutor::StartAbort Internal: Blas SGEMM launch failed : m=1572864, n=1, k=24
+	 [[{{node unet_likelihood/convolution}}]]
+Using TensorFlow backend.
+/media/hdd/dhcp/dhcp_lores/labels
+Epoch 1/200
+Traceback (most recent call last):
+  File "scripts/tutorials_dhcp/7-training_dhcp-1-SR_real.py", line 166, in <module>
+    work_with_residual_channel=work_with_residual_channel)
+  File "/media/hdd/viscent/SynthSR/SynthSR/training.py", line 412, in training
+    train_model(model, input_generator, lr, lr_decay, epochs, steps_per_epoch, model_dir, checkpoint)
+  File "/media/hdd/viscent/SynthSR/SynthSR/training.py", line 453, in train_model
+    initial_epoch=init_epoch)
+  File "/home/viscent/anaconda3/envs/synthsr/lib/python3.7/site-packages/keras/legacy/interfaces.py", line 91, in wrapper
+    return func(*args, **kwargs)
+  File "/home/viscent/anaconda3/envs/synthsr/lib/python3.7/site-packages/keras/engine/training.py", line 1732, in fit_generator
+    initial_epoch=initial_epoch)
+  File "/home/viscent/anaconda3/envs/synthsr/lib/python3.7/site-packages/keras/engine/training_generator.py", line 220, in fit_generator
+    reset_metrics=False)
+  File "/home/viscent/anaconda3/envs/synthsr/lib/python3.7/site-packages/keras/engine/training.py", line 1514, in train_on_batch
+    outputs = self.train_function(ins)
+  File "/home/viscent/anaconda3/envs/synthsr/lib/python3.7/site-packages/tensorflow_core/python/keras/backend.py", line 3740, in __call__
+    outputs = self._graph_fn(*converted_inputs)
+  File "/home/viscent/anaconda3/envs/synthsr/lib/python3.7/site-packages/tensorflow_core/python/eager/function.py", line 1081, in __call__
+    return self._call_impl(args, kwargs)
+  File "/home/viscent/anaconda3/envs/synthsr/lib/python3.7/site-packages/tensorflow_core/python/eager/function.py", line 1121, in _call_impl
+    return self._call_flat(args, self.captured_inputs, cancellation_manager)
+  File "/home/viscent/anaconda3/envs/synthsr/lib/python3.7/site-packages/tensorflow_core/python/eager/function.py", line 1224, in _call_flat
+    ctx, args, cancellation_manager=cancellation_manager)
+  File "/home/viscent/anaconda3/envs/synthsr/lib/python3.7/site-packages/tensorflow_core/python/eager/function.py", line 511, in call
+    ctx=ctx)
+  File "/home/viscent/anaconda3/envs/synthsr/lib/python3.7/site-packages/tensorflow_core/python/eager/execute.py", line 67, in quick_execute
+    six.raise_from(core._status_to_exception(e.code, message), None)
+  File "<string>", line 3, in raise_from
+tensorflow.python.framework.errors_impl.InternalError:  Blas SGEMM launch failed : m=1572864, n=1, k=24
+	 [[node unet_likelihood/convolution (defined at /home/viscent/anaconda3/envs/synthsr/lib/python3.7/site-packages/tensorflow_core/python/framework/ops.py:1751) ]] [Op:__inference_keras_scratch_graph_25926]
+
+Function call stack:
+keras_scratch_graph
+
