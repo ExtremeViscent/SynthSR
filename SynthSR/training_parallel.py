@@ -22,7 +22,6 @@ import tensorflow as tf
 from keras import models
 import keras.callbacks as KC
 from keras.optimizers import Adam
-from keras.utils.training_utils import multi_gpu_model
 from inspect import getmembers, isclass
 
 # project imports
@@ -88,7 +87,7 @@ def training(labels_dir,
              loss_cropping=None,
              checkpoint=None,
              model_file_has_different_lhood_layer=False,
-             num_gpus=1):
+             strategy=None):
     """
     This function trains a Unet to do slice imputation (and possibly synthesis) of MRI images with thick slices,
     using synthetic scans and possibly real scans.
@@ -250,201 +249,192 @@ def training(labels_dir,
         except RuntimeError as e:
             # 异常处理
             print(e)
+    with strategy.scope():
+        n_channels = len(utils.reformat_to_list(input_channels))
 
-    n_channels = len(utils.reformat_to_list(input_channels))
-
-    # convert output_channel and work_with_residual_channel to lists
-    if output_channel is not None:
-        output_channel = list(utils.reformat_to_list(output_channel))
-        n_output_channels = len(output_channel)
-    else:
-        n_output_channels = 1
-
-    # various checks
-    if (images_dir is None) & (output_channel is None):
-        raise Exception('please provide a value for output_channel or image_dir')
-    elif (images_dir is not None) & (output_channel is not None):
-        raise Exception('please provide a value either for output_channel or image_dir, but not both at the same time')
-    if output_channel is not None:
-        if any(x >= n_channels for x in output_channel):
-            raise Exception('indices in output_channel cannot be greater than the total number of channels')
-
-    # check work_with_residual_channel
-    if work_with_residual_channel is not None:
-        work_with_residual_channel = utils.reformat_to_list(work_with_residual_channel)
+        # convert output_channel and work_with_residual_channel to lists
         if output_channel is not None:
-            if len(work_with_residual_channel) != len(output_channel):
-                raise Exception('The number or residual channels and output channels must be the same')
-
-        if any(x >= n_channels for x in work_with_residual_channel):
-            raise Exception('indices in work_with_residual_channel cannot be greater than the total number of channels')
-
-        if build_reliability_maps:  # consider indices of reliability maps
-            work_with_residual_channel = 2 * work_with_residual_channel
-
-    # get label lists
-    generation_labels, n_neutral_labels = utils.get_list_labels(label_list=path_generation_labels,
-                                                                labels_dir=labels_dir,
-                                                                FS_sort=FS_sort)
-
-    # prepare model folder
-    utils.mkdir(model_dir)
-
-    # compute padding_margin if needed
-    if loss_cropping == 0:
-        padding_margin = None
-    elif padding_margin is None:
-        padding_margin = utils.get_padding_margin(output_shape, loss_cropping)
-    print('Building gen...')
-    # instantiate BrainGenerator object
-    brain_generator = BrainGenerator(labels_dir=labels_dir,
-                                     images_dir=images_dir,
-                                     generation_labels=generation_labels,
-                                     n_neutral_labels=n_neutral_labels,
-                                     padding_margin=padding_margin,
-                                     batchsize=batchsize,
-                                     input_channels=input_channels,
-                                     output_channel=output_channel,
-                                     target_res=target_res,
-                                     output_shape=output_shape,
-                                     output_div_by_n=2 ** n_levels,
-                                     generation_classes=path_generation_classes,
-                                     prior_means=prior_means,
-                                     prior_stds=prior_stds,
-                                     prior_distributions=prior_distributions,
-                                     flipping=flipping,
-                                     scaling_bounds=scaling_bounds,
-                                     rotation_bounds=rotation_bounds,
-                                     shearing_bounds=shearing_bounds,
-                                     translation_bounds=translation_bounds,
-                                     nonlin_std=nonlin_std,
-                                     nonlin_shape_factor=nonlin_shape_factor,
-                                     simulate_registration_error=simulate_registration_error,
-                                     randomise_res=randomise_res,
-                                     data_res=data_res,
-                                     thickness=thickness,
-                                     downsample=downsample,
-                                     blur_range=blur_range,
-                                     build_reliability_maps=build_reliability_maps,
-                                     bias_field_std=bias_field_std,
-                                     bias_shape_factor=bias_shape_factor)
-    print('Gen Done!')
-    # transformation model
-    labels_to_image_model = brain_generator.labels_to_image_model
-    unet_input_shape = brain_generator.model_output_shape
-    print('Transform done!')
-    # prepare the Unet model
-    if regression_metric == 'laplace':
-        nb_labels_unet = 2 * n_output_channels
-    else:
-        nb_labels_unet = n_output_channels
-    print('Building Unet...')
-    model = nrn_models.unet(nb_features=unet_feat_count,
-                            input_shape=unet_input_shape,
-                            nb_levels=n_levels,
-                            conv_size=conv_size,
-                            nb_labels=nb_labels_unet,
-                            feat_mult=feat_multiplier,
-                            nb_conv_per_level=nb_conv_per_level,
-                            conv_dropout=dropout,
-                            final_pred_activation='linear',
-                            batch_norm=-1,
-                            activation=activation,
-                            input_model=labels_to_image_model)
-    # unet_model = nrn_models.unet(nb_features=24,
-    #                             input_shape=[None, None, None, 1],
-    #                             nb_levels=5,
-    #                             conv_size=3,
-    #                             nb_labels=1,
-    #                             feat_mult=2,
-    #                             nb_conv_per_level=2,
-    #                             conv_dropout=0,
-    #                             final_pred_activation='linear',
-    #                             batch_norm=-1,
-    #                             activation='elu',
-    #                             input_model=None)
-    # print('Unet model loaded')
-    # unet_model.load_weights('/media/hdd/viscent/SynthSR/models/SynthSR_v10_210712.h5', by_name=True)
-    # input generator
-    input_generator = utils.build_training_generator(brain_generator.model_inputs_generator, batchsize)
-
-    # model
-    model = models.Model(model.inputs, model.output)
-    model = metrics_model(input_model=model,
-                          loss_cropping=loss_cropping,
-                          metrics=regression_metric,
-                          work_with_residual_channel=work_with_residual_channel)
-
-    if checkpoint is not None:
-        print('loading', checkpoint)
-
-        # If we are loading weights from a segmentation net, we temporarily change the names of the
-        # likelihood and prediction layers
-        if model_file_has_different_lhood_layer:
-            for layer in model.layers:
-                if layer.name == 'unet_likelihood':
-                    layer.name = 'unet_likelihood_'
-
-        model.load_weights(checkpoint, by_name=True)
-
-        # Undo the namge changes if needed
-        if model_file_has_different_lhood_layer:
-            for layer in model.layers:
-                if layer.name == 'unet_likelihood_':
-                    layer.name = 'unet_likelihood'
-
-    # Load pretrained segmentation CNN and add to the model, if needed
-    if segmentation_model_file is not None:
-        segmentation_labels = np.load(segmentation_label_list)
-        seg_unet_model = nrn_models.unet(nb_features=unet_feat_count,
-                                         input_shape=[*unet_input_shape[:-1], 1],
-                                         nb_levels=n_levels,
-                                         conv_size=conv_size,
-                                         nb_labels=len(segmentation_labels),
-                                         feat_mult=feat_multiplier,
-                                         nb_conv_per_level=nb_conv_per_level,
-                                         conv_dropout=dropout,
-                                         final_pred_activation='softmax',
-                                         batch_norm=-1,
-                                         activation=activation,
-                                         input_model=None)
-
-        seg_unet_model.load_weights(segmentation_model_file, by_name=True)
-        seg_unet_model.trainable = False
-        for layer in seg_unet_model.layers:
-            layer.trainable = False
-
-        # To decide where to clip the synthesized images, we look at the 2nd and 98th percentiles of the first case
-        if images_dir is None:
-            m = M = None
+            output_channel = list(utils.reformat_to_list(output_channel))
+            n_output_channels = len(output_channel)
         else:
-            first_image = utils.list_images_in_folder(images_dir)[0]
-            im = utils.load_volume(first_image, im_only=True).flatten()
-            m = np.percentile(im, 2)
-            M = np.percentile(im, 98)
+            n_output_channels = 1
 
-        model = add_seg_loss_to_model(input_model=model,
-                                      seg_model=seg_unet_model,
-                                      generation_labels=generation_labels,
-                                      segmentation_label_equivalency=segmentation_label_equivalency,
-                                      rel_weight=relative_weight_segmentation,
-                                      loss_cropping=loss_cropping,
-                                      m=m,
-                                      M=M,
-                                      fs_header=fs_header_segnet)
+        # various checks
+        if (images_dir is None) & (output_channel is None):
+            raise Exception('please provide a value for output_channel or image_dir')
+        elif (images_dir is not None) & (output_channel is not None):
+            raise Exception('please provide a value either for output_channel or image_dir, but not both at the same time')
+        if output_channel is not None:
+            if any(x >= n_channels for x in output_channel):
+                raise Exception('indices in output_channel cannot be greater than the total number of channels')
 
-    # train
-    train_model(model, input_generator, lr, lr_decay, epochs, steps_per_epoch, model_dir, checkpoint)
+        # check work_with_residual_channel
+        if work_with_residual_channel is not None:
+            work_with_residual_channel = utils.reformat_to_list(work_with_residual_channel)
+            if output_channel is not None:
+                if len(work_with_residual_channel) != len(output_channel):
+                    raise Exception('The number or residual channels and output channels must be the same')
 
-class ParallelModelCheckpoint(KC.ModelCheckpoint):
-    def __init__(self,model,filepath, monitor='val_loss', verbose=0,
-                 save_best_only=False, save_weights_only=False,
-                 mode='auto', period=1):
-        self.single_model = model
-        super(ParallelModelCheckpoint,self).__init__(filepath, monitor, verbose,save_best_only, save_weights_only,mode, period)
+            if any(x >= n_channels for x in work_with_residual_channel):
+                raise Exception('indices in work_with_residual_channel cannot be greater than the total number of channels')
 
-    def set_model(self, model):
-        super(ParallelModelCheckpoint,self).set_model(self.single_model)
+            if build_reliability_maps:  # consider indices of reliability maps
+                work_with_residual_channel = 2 * work_with_residual_channel
+
+        # get label lists
+        generation_labels, n_neutral_labels = utils.get_list_labels(label_list=path_generation_labels,
+                                                                    labels_dir=labels_dir,
+                                                                    FS_sort=FS_sort)
+
+        # prepare model folder
+        utils.mkdir(model_dir)
+
+        # compute padding_margin if needed
+        if loss_cropping == 0:
+            padding_margin = None
+        elif padding_margin is None:
+            padding_margin = utils.get_padding_margin(output_shape, loss_cropping)
+        print('Building gen...')
+        # instantiate BrainGenerator object
+        brain_generator = BrainGenerator(labels_dir=labels_dir,
+                                        images_dir=images_dir,
+                                        generation_labels=generation_labels,
+                                        n_neutral_labels=n_neutral_labels,
+                                        padding_margin=padding_margin,
+                                        batchsize=batchsize,
+                                        input_channels=input_channels,
+                                        output_channel=output_channel,
+                                        target_res=target_res,
+                                        output_shape=output_shape,
+                                        output_div_by_n=2 ** n_levels,
+                                        generation_classes=path_generation_classes,
+                                        prior_means=prior_means,
+                                        prior_stds=prior_stds,
+                                        prior_distributions=prior_distributions,
+                                        flipping=flipping,
+                                        scaling_bounds=scaling_bounds,
+                                        rotation_bounds=rotation_bounds,
+                                        shearing_bounds=shearing_bounds,
+                                        translation_bounds=translation_bounds,
+                                        nonlin_std=nonlin_std,
+                                        nonlin_shape_factor=nonlin_shape_factor,
+                                        simulate_registration_error=simulate_registration_error,
+                                        randomise_res=randomise_res,
+                                        data_res=data_res,
+                                        thickness=thickness,
+                                        downsample=downsample,
+                                        blur_range=blur_range,
+                                        build_reliability_maps=build_reliability_maps,
+                                        bias_field_std=bias_field_std,
+                                        bias_shape_factor=bias_shape_factor)
+        print('Gen Done!')
+        # transformation model
+        labels_to_image_model = brain_generator.labels_to_image_model
+        unet_input_shape = brain_generator.model_output_shape
+        print('Transform done!')
+        # prepare the Unet model
+        if regression_metric == 'laplace':
+            nb_labels_unet = 2 * n_output_channels
+        else:
+            nb_labels_unet = n_output_channels
+        print('Building Unet...')
+        model = nrn_models.unet(nb_features=unet_feat_count,
+                                input_shape=unet_input_shape,
+                                nb_levels=n_levels,
+                                conv_size=conv_size,
+                                nb_labels=nb_labels_unet,
+                                feat_mult=feat_multiplier,
+                                nb_conv_per_level=nb_conv_per_level,
+                                conv_dropout=dropout,
+                                final_pred_activation='linear',
+                                batch_norm=-1,
+                                activation=activation,
+                                input_model=labels_to_image_model)
+        # unet_model = nrn_models.unet(nb_features=24,
+        #                             input_shape=[None, None, None, 1],
+        #                             nb_levels=5,
+        #                             conv_size=3,
+        #                             nb_labels=1,
+        #                             feat_mult=2,
+        #                             nb_conv_per_level=2,
+        #                             conv_dropout=0,
+        #                             final_pred_activation='linear',
+        #                             batch_norm=-1,
+        #                             activation='elu',
+        #                             input_model=None)
+        # print('Unet model loaded')
+        # unet_model.load_weights('/media/hdd/viscent/SynthSR/models/SynthSR_v10_210712.h5', by_name=True)
+        # input generator
+        input_generator = utils.build_training_generator(brain_generator.model_inputs_generator, batchsize)
+
+        # model
+        model = models.Model(model.inputs, model.output)
+        model = metrics_model(input_model=model,
+                            loss_cropping=loss_cropping,
+                            metrics=regression_metric,
+                            work_with_residual_channel=work_with_residual_channel)
+
+        if checkpoint is not None:
+            print('loading', checkpoint)
+
+            # If we are loading weights from a segmentation net, we temporarily change the names of the
+            # likelihood and prediction layers
+            if model_file_has_different_lhood_layer:
+                for layer in model.layers:
+                    if layer.name == 'unet_likelihood':
+                        layer.name = 'unet_likelihood_'
+
+            model.load_weights(checkpoint, by_name=True)
+
+            # Undo the namge changes if needed
+            if model_file_has_different_lhood_layer:
+                for layer in model.layers:
+                    if layer.name == 'unet_likelihood_':
+                        layer.name = 'unet_likelihood'
+
+        # Load pretrained segmentation CNN and add to the model, if needed
+        if segmentation_model_file is not None:
+            segmentation_labels = np.load(segmentation_label_list)
+            seg_unet_model = nrn_models.unet(nb_features=unet_feat_count,
+                                            input_shape=[*unet_input_shape[:-1], 1],
+                                            nb_levels=n_levels,
+                                            conv_size=conv_size,
+                                            nb_labels=len(segmentation_labels),
+                                            feat_mult=feat_multiplier,
+                                            nb_conv_per_level=nb_conv_per_level,
+                                            conv_dropout=dropout,
+                                            final_pred_activation='softmax',
+                                            batch_norm=-1,
+                                            activation=activation,
+                                            input_model=None)
+
+            seg_unet_model.load_weights(segmentation_model_file, by_name=True)
+            seg_unet_model.trainable = False
+            for layer in seg_unet_model.layers:
+                layer.trainable = False
+
+            # To decide where to clip the synthesized images, we look at the 2nd and 98th percentiles of the first case
+            if images_dir is None:
+                m = M = None
+            else:
+                first_image = utils.list_images_in_folder(images_dir)[0]
+                im = utils.load_volume(first_image, im_only=True).flatten()
+                m = np.percentile(im, 2)
+                M = np.percentile(im, 98)
+
+            model = add_seg_loss_to_model(input_model=model,
+                                        seg_model=seg_unet_model,
+                                        generation_labels=generation_labels,
+                                        segmentation_label_equivalency=segmentation_label_equivalency,
+                                        rel_weight=relative_weight_segmentation,
+                                        loss_cropping=loss_cropping,
+                                        m=m,
+                                        M=M,
+                                        fs_header=fs_header_segnet)
+
+        # train
+    train_model(model, input_generator, lr, lr_decay, epochs, steps_per_epoch, model_dir, checkpoint,strategy)
+
 
 def train_model(model,
                 generator,
@@ -453,32 +443,32 @@ def train_model(model,
                 n_epochs,
                 n_steps,
                 model_dir,
-                path_checkpoint=None):
+                path_checkpoint=None,
+                strategy=None):
 
     # prepare log folder
     log_dir = os.path.join(model_dir, 'logs')
     utils.mkdir(log_dir)
+    with strategy.scope():
+        # model saving callback
+        save_file_name = os.path.join(model_dir, '{epoch:03d}.h5')
+        callbacks = [KC.ModelCheckpoint(save_file_name, verbose=1),
+                    KC.TensorBoard(log_dir=log_dir, histogram_freq=0, write_graph=True, write_images=False)]
 
-    # model saving callback
-    save_file_name = os.path.join(model_dir, '{epoch:03d}.h5')
-    callbacks = [ParallelModelCheckpoint(save_file_name, verbose=1),
-                 KC.TensorBoard(log_dir=log_dir, histogram_freq=0, write_graph=True, write_images=False)]
+        # load checkpoint if provided (no need to recompile as momentum is comprised in checkpoints)
+        if path_checkpoint is not None:
+            init_epoch = int(path_checkpoint[-6:-3])
+            custom_l2i = {key: value for (key, value) in getmembers(l2i_layers, isclass) if key != 'Layer'}
+            custom_nrn = {key: value for (key, value) in getmembers(nrn_layers, isclass) if key != 'Layer'}
+            custom_objects = {**custom_l2i, **custom_nrn, 'tf': tf, 'keras': keras, 'loss': IdentityLoss().loss}
+            model = models.load_model(path_checkpoint, custom_objects=custom_objects)
 
-    # load checkpoint if provided (no need to recompile as momentum is comprised in checkpoints)
-    if path_checkpoint is not None:
-        init_epoch = int(path_checkpoint[-6:-3])
-        custom_l2i = {key: value for (key, value) in getmembers(l2i_layers, isclass) if key != 'Layer'}
-        custom_nrn = {key: value for (key, value) in getmembers(nrn_layers, isclass) if key != 'Layer'}
-        custom_objects = {**custom_l2i, **custom_nrn, 'tf': tf, 'keras': keras, 'loss': IdentityLoss().loss}
-        model = models.load_model(path_checkpoint, custom_objects=custom_objects)
-
-    # compile model from scratch otherwise
-    else:
-        init_epoch = 0
-        model = multi_gpu_model(model, n_gpus=2)
-        model.compile(optimizer=Adam(lr=learning_rate, decay=lr_decay),
-                      loss=IdentityLoss().loss,
-                      loss_weights=[1.0])
+        # compile model from scratch otherwise
+        else:
+            init_epoch = 0
+            model.compile(optimizer=Adam(lr=learning_rate, decay=lr_decay),
+                        loss=IdentityLoss().loss,
+                        loss_weights=[1.0])
 
     # fit
     model.fit_generator(generator,
