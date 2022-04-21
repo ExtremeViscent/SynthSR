@@ -27,15 +27,15 @@ home_dir = '/media/hdd/viscent'
 #os.chdir(home_dir+'/Python/github/SynthSR')
 
 import sys
-sys.path.insert(0,os.path.join(home_dir,'SynthSR'))
+sys.path.insert(0,os.path.join('/work/zhangyq/ANC_lab','SynthSR'))
 from SynthSR.estimate_priors import build_intensity_stats
 
 # ----------------------------------------------- simple uni-modal case ------------------------------------------------
 
 # paths of directories containing the images and corresponding label maps
 
-# image_dir = '/media/hdd/dhcp/dhcp_lores'
-# labels_dir = '/media/hdd/dhcp/dhcp_lores'
+# image_dir = '/work/zhangyq/ANC_lab/dhcp_lores'
+# labels_dir = '/work/zhangyq/ANC_lab/dhcp_lores'
 # # list of labels from which we want to evaluate the GMM prior distributions
 # estimation_labels = '../data/labels_classes_priors/generation_labels_all.npy'
 # # path of folder where to write estimated priors
@@ -50,8 +50,8 @@ from SynthSR.estimate_priors import build_intensity_stats
 # ------------------------------------ building Gaussian priors from several labels ------------------------------------
 
 # # same as before
-# image_dir = '/media/hdd/dhcp/dhcp_lores'
-# labels_dir = '/media/hdd/dhcp/dhcp_lores'
+# image_dir = '/work/zhangyq/ANC_lab/dhcp_lores'
+# labels_dir = '/work/zhangyq/ANC_lab/dhcp_lores'
 # # list of labels from which we want to evaluate the GMM prior distributions
 # estimation_labels = '../data/labels_classes_priors/generation_labels_all.npy'
 # # path of folder where to write estimated priors
@@ -79,18 +79,18 @@ from SynthSR.estimate_priors import build_intensity_stats
 
 # Here we have multi-modal images, where the different channels are stored in separate directories.
 # We provide these directories as a list.
-list_image_dir = ['/media/hdd/dhcp/dhcp_lores/images_t1', '/media/hdd/dhcp/dhcp_lores/images_t2']
+list_image_dir = ['/work/zhangyq/ANC_lab/dhcp_lores/images_t1', '/work/zhangyq/ANC_lab/dhcp_lores/images_t2']
 # In this example, we assume that channels are registered and at the same resolutions.
 # Therefore we can use the same label maps for all channels.
-labels_dir = '/media/hdd/dhcp/dhcp_lores/labels'
+labels_dir = '/work/zhangyq/ANC_lab/dhcp_lores/labels'
 
 # same as before
-estimation_labels = '/media/hdd/viscent/SynthSR/data/labels_classes_priors/generation_labels.npy'
-estimation_classes = '/media/hdd/viscent/SynthSR/data/labels_classes_priors/generation_classes.npy'
-result_dir = '/media/hdd/viscent/SynthSR/data/estimated_priors'
+estimation_labels = '/work/zhangyq/ANC_lab/SynthSR/data/labels_classes_priors/generation_labels.npy'
+estimation_classes = '/work/zhangyq/ANC_lab/SynthSR/data/labels_classes_priors/generation_classes.npy'
+result_dir = '/work/zhangyq/ANC_lab/SynthSR/data/estimated_priors'
 
-# image_dir = '/media/hdd/dhcp/dhcp_lores'
-# labels_dir = '/media/hdd/dhcp/dhcp_lores'
+# image_dir = '/work/zhangyq/ANC_lab/dhcp_lores'
+# labels_dir = '/work/zhangyq/ANC_lab/dhcp_lores'
 # # list of labels from which we want to evaluate the GMM prior distributions
 # estimation_labels = '../data/labels_classes_priors/generation_labels_all.npy'
 # # path of folder where to write estimated priors
@@ -113,9 +113,9 @@ build_intensity_stats(list_image_dir=list_image_dir,
 # labels_dir = ['../data/images/labels_t1', '../data/images/labels_t2']
 
 # # same as before
-# estimation_labels = '/media/hdd/viscent/SynthSR/data/labels_classes_priors/generation_labels.npy'
-# estimation_classes = '/media/hdd/viscent/SynthSR/data/labels_classes_priors/generation_classes.npy'
-# result_dir = '/media/hdd/viscent/SynthSR/data/estimated_PV-SynthSeg_priors'
+# estimation_labels = '/work/zhangyq/ANC_lab/SynthSR/data/labels_classes_priors/generation_labels.npy'
+# estimation_classes = '/work/zhangyq/ANC_lab/SynthSR/data/labels_classes_priors/generation_classes.npy'
+# result_dir = '/work/zhangyq/ANC_lab/SynthSR/data/estimated_PV-SynthSeg_priors'
 
 # Again, we do not provide the data to examplify this case
 # build_intensity_stats(list_image_dir=list_image_dir,
