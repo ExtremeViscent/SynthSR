@@ -55,7 +55,8 @@ def labels_to_image_model(labels_shape,
                           build_reliability_maps=False,
                           blur_range=1.15,
                           bias_field_std=.3,
-                          bias_shape_factor=.025):
+                          bias_shape_factor=.025,
+                          output_labels=False):
     """
     This is used for imputation (and possibly synthesis)
     - the target is a crisp image
@@ -259,7 +260,10 @@ def labels_to_image_model(labels_shape,
 
     # build model (dummy layer enables to keep the target when plugging this model to other models)
     image = KL.Lambda(lambda x: x[0], name='image_out')([image, target])
-    brain_model = Model(inputs=list_inputs, outputs=[image, target])
+    if output_labels:
+        brain_model = Model(inputs=list_inputs, outputs=[image, target, labels])
+    else:
+        brain_model = Model(inputs=list_inputs, outputs=[image, target])
 
     return brain_model
 

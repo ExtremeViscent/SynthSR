@@ -135,5 +135,5 @@ def build_model_inputs(path_label_maps,
             list_inputs = [np.concatenate(item, 0) for item in list_inputs]
         else:
             list_inputs = [item[0] for item in list_inputs]
-
+        
         yield list_inputs

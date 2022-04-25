@@ -17,5 +17,6 @@ dev/
 models/
 results/
 data/CHILD/
+result/
 *.nii
 *.nii.gz

@@ -58,7 +58,8 @@ class BrainGenerator:
                  blur_range=1.15,
                  build_reliability_maps=False,
                  bias_field_std=0.3,
-                 bias_shape_factor=0.025):
+                 bias_shape_factor=0.025,
+                 output_labels=False):
         """
         This class is wrapper around the labels_to_image_model model. It contains the GPU model that generates images
         from labels maps, and a python generator that suplies the input data for this model.
@@ -255,6 +256,8 @@ class BrainGenerator:
         self.bias_field_std = bias_field_std
         self.bias_shape_factor = bias_shape_factor
 
+        self.output_labels=output_labels
+
         # build transformation model
         self.labels_to_image_model, self.model_output_shape = self._build_labels_to_image_model()
 
@@ -292,7 +295,8 @@ class BrainGenerator:
                                                 build_reliability_maps=self.build_reliability_maps,
                                                 blur_range=self.blur_range,
                                                 bias_field_std=self.bias_field_std,
-                                                bias_shape_factor=self.bias_shape_factor)
+                                                bias_shape_factor=self.bias_shape_factor,
+                                                output_labels=self.output_labels)
         out_shape = lab_to_im_model.output[0].get_shape().as_list()[1:]
         return lab_to_im_model, out_shape
 
@@ -312,12 +316,19 @@ class BrainGenerator:
     def _build_brain_generator(self):
         while True:
             model_inputs = next(self.model_inputs_generator)
-            [image, target] = self.labels_to_image_model.predict(model_inputs)
-            yield image, target
+            if not self.output_labels:
+                [image, target] = self.labels_to_image_model.predict(model_inputs)
+                yield image, target
+            else:
+                [image, target, label] = self.labels_to_image_model.predict(model_inputs)
+                yield image, target, label
 
     def generate_brain(self):
         """call this method when an object of this class has been instantiated to generate new brains"""
-        (image, target) = next(self.brain_generator)
+        if self.output_labels:
+            (image, target,label) = next(self.brain_generator)
+        else:
+            (image, target) = next(self.brain_generator)
         # put back images in native space
         list_images = list()
         list_targets = list()
@@ -328,4 +339,7 @@ class BrainGenerator:
                                                                  aff_ref=self.aff, n_dims=self.n_dims))
         image = np.squeeze(np.stack(list_images, axis=0))
         target = np.squeeze(np.stack(list_targets, axis=0))
-        return image, target
+        if self.output_labels:
+            return image, target, label
+        else:
+            return image, target
