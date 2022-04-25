@@ -18,6 +18,8 @@ License.
 """
 import os
 from pathlib import Path
+import tensorflow as tf
+from tensorflow import keras
 home_dir = '/work/zhangyq/ANC_lab'
 
 # change directory (to import SynthSR code) - NOT REQUIRED IF RUNNING FROM COMMAND LINE?
@@ -124,6 +126,8 @@ simulate_registration_error = True
 print(prior_means)
 print(prior_stds)
 
+strategy = tf.distribute.MirroredStrategy()
+print("Number of devices: {}".format(strategy.num_replicas_in_sync))
 ########################################################################################################
 
 # launch training
@@ -165,4 +169,5 @@ training(labels_folder,
          epochs=epochs,
          steps_per_epoch=steps_per_epoch,
          regression_metric=regression_metric,
-         work_with_residual_channel=work_with_residual_channel)
+         work_with_residual_channel=work_with_residual_channel,
+         strategy=strategy)
